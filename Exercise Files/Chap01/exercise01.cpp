@@ -18,6 +18,7 @@ public:
     // char *wordQuotient(unsigned long int div);
     // char *wordQuotient(unsigned long long int div);
     const char *div1();
+    const char *div1(int remainder);
     const char *div10();
     const char *div100();
 };
@@ -48,8 +49,7 @@ void Integer::words()
     {
     case 0:
         // n < 1000
-        pt_temp = div1();
-        // std::cout << "n is " << n << " before calling div100().\n";
+        pt_temp = div100();
         std::cout << "n is " << n << ", " << pt_temp << std::endl;
 
         break;
@@ -63,6 +63,7 @@ void Integer::words()
 
 const char *Integer::div1()
 {
+    std::cout << "I am in here!\n";
     unsigned long long int quotient = n / 1;
     // char *tempdiv1;
     char * tempdiv1 = new char[10];
@@ -88,12 +89,14 @@ const char *Integer::div1()
 
     pt_outputdiv1 = tempdiv1;
     delete [] tempdiv1;
+    std::cout << "pt_outputdiv1 points to " << pt_outputdiv1 << std::endl;
     return pt_outputdiv1;
 }
 
 const char *Integer::div10()
 {
-    char *pt_temp;
+    // char *pt_temp;
+    char * pt_temp = new char[20];
     const char *pt_output;
     int quotient = n / 10;
     if (quotient == 9)
@@ -174,7 +177,11 @@ const char *Integer::div10()
         else
         {
             strcpy(pt_temp, "twenty-");
-            strcat(pt_temp, div1());
+            const char * pt_div1;
+            pt_div1 = div1();
+            std::cout << "pt_div1 points to " << pt_div1 << std::endl;
+            strncat(pt_temp, pt_div1, 20);
+            strcat(pt_temp, "()");
         }
     }
     else if (quotient == 1)
@@ -206,18 +213,19 @@ const char *Integer::div10()
     }
 
     pt_output = pt_temp;
-    return pt_temp;
+    delete [] pt_temp;
+    return pt_output;
 }
 
 const char *Integer::div100()
 {
     int quotient = n / 100;
     int remainder = n % 100;
-    char *pt_temp;
+    char *pt_temp = new char[40];
     const char *pt_output;
+    printf("Div100(), remainder is %d.\n", remainder);
     if (quotient == 0)
     {
-        std::cout << "working!\n";
         strcpy(pt_temp, div10());
     }
     if (quotient == 1)
@@ -241,18 +249,24 @@ const char *Integer::div100()
 
     if (remainder != 0 && quotient != 0)
     {
+        std::cout << "Working!" << std::endl;
         strcat(pt_temp, " ");
         strcat(pt_temp, div10());
     }
     pt_output = pt_temp;
+    delete [] pt_temp;
     return pt_output;
 }
 
 int main()
 {
-    Integer n = 9;
+    Integer n = 19;
     n.words();
-    n = 6;
+    // n = 6;
+    // n.words();
+    n = 21;
+    n.words();
+    n = 610;
     n.words();
 
     return 0;
