@@ -23,6 +23,9 @@ void Integer::words()
     }
     int c1remainder = 0;
     int c1quotient = 0;
+    int c2quotient = 0;
+    int c2intermediateremainder = 0;
+    int c2remainder = 0;
     printf("n = %lld, ", n);
     switch (indicator)
     {
@@ -36,15 +39,27 @@ void Integer::words()
         // 1,000 <= n < 1,000,000
         c1quotient = n / 1000;
         c1remainder = n % 1000;
-        printf("c1quotient is %d.\n", c1quotient);
-        printf("c1remainder is %d.\n", c1remainder);
+        // printf("c1quotient is %d.\n", c1quotient);
+        // printf("c1remainder is %d.\n", c1remainder);
         div100(c1quotient);
         printf(" thousands ");
-        div100(c1quotient);
+        div100(c1remainder);
         printf("\n");
 
         break;
 
+    case 2: 
+        // 1,000,000 <= n < 1,000,000,000
+        c2quotient = n / 1000000;
+        c2intermediateremainder = n % 1000000 / 1000;
+        c2remainder = n % 1000000 % 1000;
+        div100(c2quotient);
+        printf(" millions ");
+        div100(c2intermediateremainder);
+        printf(" thousands ");
+        div100(c2remainder);
+        printf("\n");
+        break;
     default:
         break;
     }
@@ -217,6 +232,9 @@ void Integer::div10(const int remainder)
 {
     int quotient = remainder / 10;
     int div10remainder = remainder % 10;
+    // printf("quotient in div10 is %d.\n", quotient);
+    // printf("remainder in div10 is %d.\n", div10remainder);
+
     if (quotient == 9)
     {
         if (n % 10 == 0)
@@ -300,25 +318,25 @@ void Integer::div10(const int remainder)
     }
     else if (quotient == 1)
     {
-        if (n % 10 == 0)
+        if (div10remainder == 0)
             printf("ten");
-        else if (n % 10 == 1)
+        else if (div10remainder == 1)
             printf("eleven");
-        else if (n % 10 == 2)
+        else if (div10remainder == 2)
             printf("twelve");
-        else if (n % 10 == 3)
+        else if (div10remainder == 3)
             printf("thirteen");
-        else if (n % 10 == 4)
+        else if (div10remainder == 4)
             printf("forteen");
-        else if (n % 10 == 5)
+        else if (div10remainder == 5)
             printf("fifteen");
-        else if (n % 10 == 6)
+        else if (div10remainder == 6)
             printf("sixteen");
-        else if (n % 10 == 7)
+        else if (div10remainder == 7)
             printf("seventeen");
-        else if (n % 10 == 8)
+        else if (div10remainder == 8)
             printf("eighteen");
-        else if (n % 10 == 9)
+        else if (div10remainder == 9)
             printf("nineteen");
     }
     else if (quotient == 0)
@@ -367,6 +385,8 @@ void Integer::div100(const int remainder)
     int div100remainder = remainder % 100;
     if (div100quotient == 0)
     {
+        // std::cout << "I'm here!\n";
+        // std::cout << "div100remainder in div100 is " << div100remainder << std::endl;
         div10(div100remainder);
     }
     if (div100quotient == 1)
