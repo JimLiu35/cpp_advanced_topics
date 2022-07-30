@@ -1,6 +1,5 @@
 #include "exer01.h"
 
-
 Integer::Integer(const unsigned long long int num)
 {
     n = num;
@@ -13,7 +12,6 @@ Integer::~Integer()
 void Integer::words()
 {
     int indicator = 0;
-    const char *pt_temp;
     for (int i = 0; i < 5; i++)
     {
         unsigned long long int quotient = n / divider[i];
@@ -23,11 +21,27 @@ void Integer::words()
             ++indicator;
         }
     }
+    int c1remainder = 0;
+    int c1quotient = 0;
+    printf("n = %lld, ", n);
     switch (indicator)
     {
     case 0:
-        // n < 1000
-        div10();
+        // n < 1,000
+        div100();
+        printf("\n");
+        break;
+
+    case 1:
+        // 1,000 <= n < 1,000,000
+        c1quotient = n / 1000;
+        c1remainder = n % 1000;
+        printf("c1quotient is %d.\n", c1quotient);
+        printf("c1remainder is %d.\n", c1remainder);
+        div100(c1quotient);
+        printf(" thousands ");
+        div100(c1quotient);
+        printf("\n");
 
         break;
 
@@ -41,64 +55,51 @@ void Integer::words()
 void Integer::div1(const int remainder)
 {
     unsigned long long int quotient = remainder / 1;
-    char tempdiv1[10];
-    // char * tempdiv1 = new char[10];
-    const char *pt_outputdiv1;
     if (quotient == 9)
-        strcpy(tempdiv1, "nine");
+        printf("nine");
     else if (quotient == 8)
-        strcpy(tempdiv1, "eight");
+        printf("eight");
     else if (quotient == 7)
-        strcpy(tempdiv1, "seven");
+        printf("seven");
     else if (quotient == 6)
-        strcpy(tempdiv1, "six");
+        printf("six");
     else if (quotient == 5)
-        strcpy(tempdiv1, "five");
+        printf("five");
     else if (quotient == 4)
-        strcpy(tempdiv1, "four");
+        printf("four");
     else if (quotient == 3)
-        strcpy(tempdiv1, "three");
+        printf("three");
     else if (quotient == 2)
-        strcpy(tempdiv1, "two");
+        printf("two");
     else if (quotient == 1)
-        strcpy(tempdiv1, "one");
-
+        printf("one");
 }
-
 
 void Integer::div1()
 {
-    std::cout << "I am in here!\n";
     unsigned long long int quotient = n / 1;
-    // char *tempdiv1;
-    char tempdiv1[10];
-    const char *pt_outputdiv1;
     if (quotient == 9)
-        strcpy(tempdiv1, "nine");
+        printf("nine");
     else if (quotient == 8)
-        strcpy(tempdiv1, "eight");
+        printf("eight");
     else if (quotient == 7)
-        strcpy(tempdiv1, "seven");
+        printf("seven");
     else if (quotient == 6)
-        strcpy(tempdiv1, "six");
+        printf("six");
     else if (quotient == 5)
-        strcpy(tempdiv1, "five");
+        printf("five");
     else if (quotient == 4)
-        strcpy(tempdiv1, "four");
+        printf("four");
     else if (quotient == 3)
-        strcpy(tempdiv1, "three");
+        printf("three");
     else if (quotient == 2)
-        strcpy(tempdiv1, "two");
+        printf("two");
     else if (quotient == 1)
-        strcpy(tempdiv1, "one");
-
+        printf("one");
 }
 
 void Integer::div10()
 {
-    // char *pt_temp;
-    char pt_temp[20];
-    const char *pt_output;
     int quotient = n / 10;
     int remainder = n % 10;
     if (quotient == 9)
@@ -107,7 +108,7 @@ void Integer::div10()
             printf("ninety");
         else
         {
-            // pt_temp = div1();
+            // = div1();
             printf("ninety-");
             div1(remainder);
         }
@@ -169,88 +170,226 @@ void Integer::div10()
         else
         {
             printf("thirty-");
-            strcat(pt_temp, div1(remainder));
+            div1(remainder);
         }
     }
     else if (quotient == 2)
     {
         if (n % 10 == 0)
-            strcpy(pt_temp, "twenty");
+            printf("twenty");
         else
         {
-            strcpy(pt_temp, "twenty-");
-            const char * pt_div1;
-            pt_div1 = div1(remainder);
-            strncat(pt_temp, pt_div1, 20);
-            strcat(pt_temp, "()");
+            printf("twenty-");
+            div1(remainder);
         }
     }
     else if (quotient == 1)
     {
         if (n % 10 == 0)
-            strcpy(pt_temp, "ten");
+            printf("ten");
         else if (n % 10 == 1)
-            strcpy(pt_temp, "eleven");
+            printf("eleven");
         else if (n % 10 == 2)
-            strcpy(pt_temp, "twelve");
+            printf("twelve");
         else if (n % 10 == 3)
-            strcpy(pt_temp, "thirteen");
+            printf("thirteen");
         else if (n % 10 == 4)
-            strcpy(pt_temp, "forteen");
+            printf("forteen");
         else if (n % 10 == 5)
-            strcpy(pt_temp, "fifteen");
+            printf("fifteen");
         else if (n % 10 == 6)
-            strcpy(pt_temp, "sixteen");
+            printf("sixteen");
         else if (n % 10 == 7)
-            strcpy(pt_temp, "seventeen");
+            printf("seventeen");
         else if (n % 10 == 8)
-            strcpy(pt_temp, "eighteen");
+            printf("eighteen");
         else if (n % 10 == 9)
-            strcpy(pt_temp, "nineteen");
+            printf("nineteen");
     }
     else if (quotient == 0)
     {
-        // strcpy(pt_temp, div1(remainder));
+        // printf( div1(remainder));
         div1(remainder);
     }
+}
 
-    pt_output = pt_temp;
+void Integer::div10(const int remainder)
+{
+    int quotient = remainder / 10;
+    int div10remainder = remainder % 10;
+    if (quotient == 9)
+    {
+        if (n % 10 == 0)
+            printf("ninety");
+        else
+        {
+            // = div1();
+            printf("ninety-");
+            div1(div10remainder);
+        }
+    }
+    else if (quotient == 8)
+    {
+        if (n % 10 == 0)
+            printf("eighty");
+        else
+        {
+            printf("eighty-");
+            div1(div10remainder);
+        }
+    }
+    else if (quotient == 7)
+    {
+        if (n % 10 == 0)
+            printf("seventy");
+        else
+        {
+            printf("seventy-");
+            div1(div10remainder);
+        }
+    }
+    else if (quotient == 6)
+    {
+        if (n % 10 == 0)
+            printf("sixty");
+        else
+        {
+            printf("sixty-");
+            div1(div10remainder);
+        }
+    }
+    else if (quotient == 5)
+    {
+        if (n % 10 == 0)
+            printf("fifty");
+        else
+        {
+            printf("fifty-");
+            div1(div10remainder);
+        }
+    }
+    else if (quotient == 4)
+    {
+        if (n % 10 == 0)
+            printf("forty");
+        else
+        {
+            printf("forty-");
+            div1(div10remainder);
+        }
+    }
+    else if (quotient == 3)
+    {
+        if (n % 10 == 0)
+            printf("thirty");
+        else
+        {
+            printf("thirty-");
+            div1(div10remainder);
+        }
+    }
+    else if (quotient == 2)
+    {
+        if (n % 10 == 0)
+            printf("twenty");
+        else
+        {
+            printf("twenty-");
+            div1(div10remainder);
+        }
+    }
+    else if (quotient == 1)
+    {
+        if (n % 10 == 0)
+            printf("ten");
+        else if (n % 10 == 1)
+            printf("eleven");
+        else if (n % 10 == 2)
+            printf("twelve");
+        else if (n % 10 == 3)
+            printf("thirteen");
+        else if (n % 10 == 4)
+            printf("forteen");
+        else if (n % 10 == 5)
+            printf("fifteen");
+        else if (n % 10 == 6)
+            printf("sixteen");
+        else if (n % 10 == 7)
+            printf("seventeen");
+        else if (n % 10 == 8)
+            printf("eighteen");
+        else if (n % 10 == 9)
+            printf("nineteen");
+    }
+    else if (quotient == 0)
+    {
+        // printf( div1(remainder));
+        div1(div10remainder);
+    }
 }
 
 void Integer::div100()
 {
     int quotient = n / 100;
     int remainder = n % 100;
-    char *pt_temp = new char[40];
-    const char *pt_output;
-    printf("Div100(), remainder is %d.\n", remainder);
     if (quotient == 0)
     {
-        strcpy(pt_temp, div10());
+        div10();
     }
     if (quotient == 1)
-        strcpy(pt_temp, "one hundred");
+        printf("one hundred ");
     if (quotient == 2)
-        strcpy(pt_temp, "two hundreds");
+        printf("two hundreds ");
     if (quotient == 3)
-        strcpy(pt_temp, "three hundreds");
+        printf("three hundreds ");
     if (quotient == 4)
-        strcpy(pt_temp, "four hundreds");
+        printf("four hundreds ");
     if (quotient == 5)
-        strcpy(pt_temp, "five hundreds");
+        printf("five hundreds ");
     if (quotient == 6)
-        strcpy(pt_temp, "six hundreds");
+        printf("six hundreds ");
     if (quotient == 7)
-        strcpy(pt_temp, "seven hundreds");
+        printf("seven hundreds ");
     if (quotient == 8)
-        strcpy(pt_temp, "eight hundreds");
+        printf("eight hundreds ");
     if (quotient == 9)
-        strcpy(pt_temp, "nine hundreds");
+        printf("nine hundreds ");
 
     if (remainder != 0 && quotient != 0)
     {
-        std::cout << "Working!" << std::endl;
-        strcat(pt_temp, " ");
-        strcat(pt_temp, div10());
+        div10(remainder);
+    }
+}
+
+void Integer::div100(const int remainder)
+{
+    int div100quotient = remainder / 100;
+    int div100remainder = remainder % 100;
+    if (div100quotient == 0)
+    {
+        div10(div100remainder);
+    }
+    if (div100quotient == 1)
+        printf("one hundred ");
+    if (div100quotient == 2)
+        printf("two hundreds ");
+    if (div100quotient == 3)
+        printf("three hundreds ");
+    if (div100quotient == 4)
+        printf("four hundreds ");
+    if (div100quotient == 5)
+        printf("five hundreds ");
+    if (div100quotient == 6)
+        printf("six hundreds ");
+    if (div100quotient == 7)
+        printf("seven hundreds ");
+    if (div100quotient == 8)
+        printf("eight hundreds ");
+    if (div100quotient == 9)
+        printf("nine hundreds ");
+
+    if (div100remainder != 0 && div100quotient != 0)
+    {
+        div10(div100remainder);
     }
 }

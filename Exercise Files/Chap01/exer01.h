@@ -20,10 +20,12 @@ public:
     // char *wordQuotient(unsigned int div);
     // char *wordQuotient(unsigned long int div);
     // char *wordQuotient(unsigned long long int div);
-    const char *div1();
-    const char *div1(const int remainder);
-    const char *div10();
-    const char *div100();
+    void div1();
+    void div1(const int remainder);
+    void div10();
+    void div10(const int remainder);
+    void div100();
+    void div100(const int remainder);
 };
 
 #endif

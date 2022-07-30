@@ -8,8 +8,12 @@ int main()
     n.words();
     n = 21;
     n.words();
-    // n = 610;
-    // n.words();
+    n = 967;
+    n.words();
+    n = 1000;
+    n.words();
+    n = 1987;
+    n.words();
 
     return 0;
 }
